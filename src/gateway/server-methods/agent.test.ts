@@ -125,6 +125,7 @@ describe("gateway agent handler", () => {
       agents: {
         defaults: {
           userTimezone: "America/New_York",
+          timeFormat: "12",
         },
       },
     };
@@ -163,7 +164,9 @@ describe("gateway agent handler", () => {
     await vi.waitFor(() => expect(mocks.agentCommand).toHaveBeenCalled());
 
     const callArgs = mocks.agentCommand.mock.calls[0][0];
-    expect(callArgs.message).toBe("[Wed 2026-01-28 20:30 EST] Is it the weekend?");
+    expect(callArgs.message).toMatch(
+      /^\[.*Wednesday.*January 28.*2026.*8:30 PM.*\] Is it the weekend\?$/,
+    );
 
     mocks.loadConfigReturn = {};
     vi.useRealTimers();
