@@ -115,7 +115,7 @@ export function formatZonedTimestamp(date: Date, timeZone?: string): string | un
   const hh = pick("hour");
   const min = pick("minute");
   const tz = [...parts]
-    .reverse()
+    .toReversed()
     .find((part) => part.type === "timeZoneName")
     ?.value?.trim();
   if (!yyyy || !mm || !dd || !hh || !min) return undefined;
